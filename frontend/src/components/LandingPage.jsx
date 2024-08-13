@@ -4,13 +4,14 @@ import { GiCommercialAirplane } from 'react-icons/gi';
 import { IoHome } from 'react-icons/io5';
 import { FaHeart } from 'react-icons/fa';
 import { BsStars } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
     const texts = ['on trips', 'with housemates', 'with your partner', 'with anyone'];
     const icons = [<GiCommercialAirplane />, <IoHome />, <FaHeart />, <BsStars />];
     const [index, setIndex] = useState(0);
     const [isScrolled, setIsScrolled] = useState(false);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const intervalId = setInterval(() => {
             setIndex(prevIndex => (prevIndex + 1) % texts.length);
@@ -31,6 +32,10 @@ export default function LandingPage() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    function handleClick() {
+        navigate('/sign-in');
+    }
 
     return (
         <div className='main-container'>
@@ -64,7 +69,7 @@ export default function LandingPage() {
                             friends, and family.
                         </h4>
                     </div>
-                    <button className="get-started">Get Started</button>
+                    <button onClick={handleClick} className="get-started">Get Started</button>
                 </div>
             </section>
             <section className="hero2">
